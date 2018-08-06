@@ -193,6 +193,7 @@ open class EasyTipView: UIView {
             public var textHInset           = CGFloat(10)
             public var textVInset           = CGFloat(10)
             public var maxWidth             = CGFloat(200)
+            public var horizontalMargins    = CGFloat(20)
         }
         
         public struct Animating {
@@ -267,7 +268,7 @@ open class EasyTipView: UIView {
         
         [unowned self] in
         
-        var contentSize = CGSize(width: self.textSize.width + self.preferences.positioning.textHInset * 2 + self.preferences.positioning.bubbleHInset * 2, height: self.textSize.height + self.preferences.positioning.textVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight)
+        var contentSize = CGSize(width: self.textSize.width + self.preferences.positioning.textHInset * 2 + self.preferences.positioning.bubbleHInset * 2 + self.preferences.positioning.horizontalMargins, height: self.textSize.height + self.preferences.positioning.textVInset * 2 + self.preferences.positioning.bubbleVInset * 2 + self.preferences.drawing.arrowHeight)
         
         return contentSize
         }()
@@ -536,10 +537,10 @@ open class EasyTipView: UIView {
         switch arrowPosition {
         case .bottom, .top, .any:
             
-            bubbleWidth = contentSize.width - 2 * preferences.positioning.bubbleHInset
+            bubbleWidth = contentSize.width - 2 * preferences.positioning.bubbleHInset - preferences.positioning.horizontalMargins
             bubbleHeight = contentSize.height - 2 * preferences.positioning.bubbleVInset - preferences.drawing.arrowHeight
             
-            bubbleXOrigin = preferences.positioning.bubbleHInset
+            bubbleXOrigin = preferences.positioning.bubbleHInset + preferences.positioning.horizontalMargins / 2
             bubbleYOrigin = arrowPosition == .bottom ? preferences.positioning.bubbleVInset : preferences.positioning.bubbleVInset + preferences.drawing.arrowHeight
             
         case .left, .right:
